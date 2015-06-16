@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap-datepicker")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -22,9 +23,33 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Lançar Entrada", "Entrada", "Eventoes")</li>
+                    <li>@Html.ActionLink("Lançar Saída", "Saida", "Eventoes")</li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                            Cadastros <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Tabela de Preço", "Index", "Precoes")</li>
+                            <li>@Html.ActionLink("Aluno", "Index", "Alunoes")</li>
+                            <li>@Html.ActionLink("Estacionamento", "Index", "Estacionamentoes")</li>
+                            <li>@Html.ActionLink("Funcionário", "Index", "Funcionarios")</li>
+                            <li>@Html.ActionLink("Modelo de Veículos", "Index", "VeiculoModeloes")</li>
+                            <li>@Html.ActionLink("Tipos de Pagamento", "Index", "PagamentoTipoes")</li>
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                            Relatórios <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Entradas e Saídas", "Index", "Precoes")</li>
+                            <li>@Html.ActionLink("Financeiro", "Index", "Alunoes")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Sobre", "About", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>
@@ -38,6 +63,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/momentjs")
+    @Scripts.Render("~/bundles/bootstrap-datepicker")
     @RenderSection("scripts", required: false)
 </body>
 </html>

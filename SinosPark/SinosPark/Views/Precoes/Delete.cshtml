@@ -1,0 +1,56 @@
+﻿@model SinosPark.Models.Preco
+
+@{
+    ViewBag.Title = @Resource.Label_Delete;
+}
+
+<h2>@Resource.Label_Delete</h2>
+
+<h3>@Resource.Confirm_Delete</h3>
+<div>
+    <h4>Preço</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tempo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tempo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isMoto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isMoto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isAtivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isAtivo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@Resource.Label_Delete" class="btn btn-default" /> |
+            @Html.ActionLink(@Resource.Label_BackToList, "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,50 @@
+﻿@model SinosPark.Models.Preco
+
+@{
+    ViewBag.Title = @Resource.Label_Details;
+}
+
+<h2>@Resource.Label_Details</h2>
+
+<div>
+    <h4>Preço</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tempo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tempo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isMoto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isMoto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isAtivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isAtivo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(@Resource.Label_Edit, "Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(@Resource.Label_BackToList, "Index")
+</p>

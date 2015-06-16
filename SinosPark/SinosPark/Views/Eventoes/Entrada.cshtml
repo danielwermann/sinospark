@@ -1,0 +1,115 @@
+﻿@using System.Resources
+@model SinosPark.ViewModels.EventoViewModel
+@{
+    ViewBag.Title = "Entrada";
+}
+
+<h2>Lançar Evento de Entrada</h2>
+
+@using (Html.BeginForm("SaveEntrada"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Evento</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Data e Hora de entrada</label>
+            <div class="col-md-10">
+                <div class='input-group date' id='dataEntrada'>
+                    @Html.EditorFor(model => model.Entrada, new {htmlAttributes = new {@class = "form-control"}})
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(model => model.Entrada, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Estacionamentos, "Estacionamento", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Estacionamentos", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Estacionamentos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Veiculos, "Veículo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Veiculos", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Veiculos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Alunos, "Aluno", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Alunos", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Alunos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@Resource.Label_Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            moment.locale('pt', {
+                months: "janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro".split("_"),
+                monthsShort: "janvjan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez".split("_"),
+                weekdays: "domingo_segunda-feira_terça-feira_quarta-feira_quinta-feira_sexta-feira_sábado".split("_"),
+                weekdaysShort: "dom_seg_ter_qua_qui_sex_sáb".split("_"),
+                weekdaysMin: "dom_2ª_3ª_4ª_5ª_6ª_sáb".split("_"),
+                longDateFormat: {
+                    LT: 'HH:mm',
+                    L: 'DD/MM/YYYY',
+                    LL: 'D [de] MMMM [de] YYYY',
+                    LLL: 'D [de] MMMM [de] YYYY [às] LT',
+                    LLLL: 'dddd, D [de] MMMM [de] YYYY [às] LT'
+                },
+                calendar: {
+                    sameDay: '[Hoje às] LT',
+                    nextDay: '[Amanhã às] LT',
+                    nextWeek: 'dddd [às] LT',
+                    lastDay: '[Ontem às] LT',
+                    lastWeek: function () {
+                        return (this.day() === 0 || this.day() === 6) ?
+                            '[Último] dddd [às] LT' : // Saturday + Sunday
+                            '[Última] dddd [às] LT'; // Monday - Friday
+                    },
+                    sameElse: 'L'
+                },
+                relativeTime : {
+                    future : 'em %s',
+                    past : '%s atrás',
+                    s : 'segundos',
+                    m : 'um minuto',
+                    mm : '%d minutos',
+                    h : 'uma hora',
+                    hh : '%d horas',
+                    d : 'um dia',
+                    dd : '%d dias',
+                    M : 'um mês',
+                    MM : '%d meses',
+                    y : 'um ano',
+                    yy : '%d anos'
+                },
+                ordinal : '%dº'
+            });
+
+        $('#dataEntrada').datetimepicker({
+            locale: "pt"
+        });
+    });
+</script>
+}

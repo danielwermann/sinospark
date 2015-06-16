@@ -1,0 +1,50 @@
+﻿@model SinosPark.Models.Aluno
+
+@{
+    ViewBag.Title = Resource.Label_Details;
+}
+
+<h2>@Resource.Label_Details</h2>
+
+<div>
+    <h4>Aluno</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CPF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CPF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Matricula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Matricula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorSaldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorSaldo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(@Resource.Label_Edit, "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(@Resource.Label_BackToList, "Index")
+</p>

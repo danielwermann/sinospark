@@ -29,5 +29,7 @@ namespace SinosPark.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<SinosPark.Models.Estacionamento> Estacionamentoes { get; set; }
     }
 }

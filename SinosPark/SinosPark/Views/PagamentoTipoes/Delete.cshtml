@@ -1,0 +1,40 @@
+﻿@model SinosPark.Models.PagamentoTipo
+
+@{
+    ViewBag.Title = @Resource.Label_Delete;
+}
+
+<h2>@Resource.Label_Delete</h2>
+
+<h3>@Resource.Confirm_Delete</h3>
+<div>
+    <h4>Tipo de Pagamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isAtivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isAtivo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@Resource.Label_Delete" class="btn btn-default" /> |
+            @Html.ActionLink(@Resource.Label_BackToList, "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SinosPark.Models.VeiculoModelo>
+
+@{
+    ViewBag.Title = "Lista de Modelos de Veículos";
+}
+
+<h2>Lista de Modelos de Veículos</h2>
+
+<p>
+    @Html.ActionLink(@Resource.Label_CreateNew, "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isAtivo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isMoto)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isAtivo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isMoto)
+        </td>
+        <td>
+            @Html.ActionLink(@Resource.Label_Edit, "Edit", new { id = item.Id }) |
+            @Html.ActionLink(@Resource.Label_Details, "Details", new { id = item.Id }) |
+            @Html.ActionLink(@Resource.Label_Delete, "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

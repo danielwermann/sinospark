@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SinosParkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CPF" Type="nchar" MaxLength="11" />
+          <Property Name="Matricula" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValorSaldo" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Estacionamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isAtivo" Type="bit" Nullable="false" />
+          <Property Name="QuantidadeMaxima" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Evento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Entrada" Type="datetime" Nullable="false" />
+          <Property Name="Saida" Type="datetime" />
+          <Property Name="CodigoBarras" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VeiculoId" Type="int" />
+          <Property Name="AlunoId" Type="int" />
+          <Property Name="EstacionamentoId" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Funcionario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CPF" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="isGerente" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Pagamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Tempo" Type="time" Precision="7" />
+          <Property Name="Valor" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="DataHoraPagamento" Type="datetime" />
+          <Property Name="EventoId" Type="smallint" Nullable="false" />
+          <Property Name="PagamentoTipoId" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PagamentoTipo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="tinyint" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isAtivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Preco">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Tempo" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Valor" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="isMoto" Type="bit" Nullable="false" />
+          <Property Name="isAtivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Veiculo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Placa" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Cor" Type="nvarchar" MaxLength="30" />
+          <Property Name="VeiculoModeloId" Type="smallint" />
+          <Property Name="isBloqueado" Type="bit" />
+        </EntityType>
+        <EntityType Name="VeiculoModelo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="50" />
+          <Property Name="isAtivo" Type="bit" />
+          <Property Name="isMoto" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Evento_Aluno">
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="0..1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="AlunoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evento_Estacionamento">
+          <End Role="Estacionamento" Type="Self.Estacionamento" Multiplicity="1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estacionamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="EstacionamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evento_Veiculo">
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="0..1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="VeiculoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_Evento">
+          <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="EventoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_PagamentoTipo">
+          <End Role="PagamentoTipo" Type="Self.PagamentoTipo" Multiplicity="1" />
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PagamentoTipo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="PagamentoTipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Veiculo_VeiculoModelo">
+          <End Role="VeiculoModelo" Type="Self.VeiculoModelo" Multiplicity="0..1" />
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VeiculoModelo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Veiculo">
+              <PropertyRef Name="VeiculoModeloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SinosParkModelStoreContainer">
+          <EntitySet Name="Aluno" EntityType="Self.Aluno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estacionamento" EntityType="Self.Estacionamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evento" EntityType="Self.Evento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Funcionario" EntityType="Self.Funcionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pagamento" EntityType="Self.Pagamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PagamentoTipo" EntityType="Self.PagamentoTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Preco" EntityType="Self.Preco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Veiculo" EntityType="Self.Veiculo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VeiculoModelo" EntityType="Self.VeiculoModelo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Evento_Aluno" Association="Self.FK_Evento_Aluno">
+            <End Role="Aluno" EntitySet="Aluno" />
+            <End Role="Evento" EntitySet="Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evento_Estacionamento" Association="Self.FK_Evento_Estacionamento">
+            <End Role="Estacionamento" EntitySet="Estacionamento" />
+            <End Role="Evento" EntitySet="Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evento_Veiculo" Association="Self.FK_Evento_Veiculo">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="Evento" EntitySet="Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_Evento" Association="Self.FK_Pagamento_Evento">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_PagamentoTipo" Association="Self.FK_Pagamento_PagamentoTipo">
+            <End Role="PagamentoTipo" EntitySet="PagamentoTipo" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Veiculo_VeiculoModelo" Association="Self.FK_Veiculo_VeiculoModelo">
+            <End Role="VeiculoModelo" EntitySet="VeiculoModelo" />
+            <End Role="Veiculo" EntitySet="Veiculo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SinosParkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Matricula" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ValorSaldo" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Evento" Relationship="Self.FK_Evento_Aluno" FromRole="Aluno" ToRole="Evento" />
+        </EntityType>
+        <EntityType Name="Estacionamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isAtivo" Type="Boolean" Nullable="false" />
+          <Property Name="QuantidadeMaxima" Type="Int16" />
+          <NavigationProperty Name="Evento" Relationship="Self.FK_Evento_Estacionamento" FromRole="Estacionamento" ToRole="Evento" />
+        </EntityType>
+        <EntityType Name="Evento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Entrada" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Saida" Type="DateTime" Precision="3" />
+          <Property Name="CodigoBarras" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VeiculoId" Type="Int32" />
+          <Property Name="AlunoId" Type="Int32" />
+          <Property Name="EstacionamentoId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Aluno" Relationship="Self.FK_Evento_Aluno" FromRole="Evento" ToRole="Aluno" />
+          <NavigationProperty Name="Estacionamento" Relationship="Self.FK_Evento_Estacionamento" FromRole="Evento" ToRole="Estacionamento" />
+          <NavigationProperty Name="Veiculo" Relationship="Self.FK_Evento_Veiculo" FromRole="Evento" ToRole="Veiculo" />
+          <NavigationProperty Name="Pagamento" Relationship="Self.FK_Pagamento_Evento" FromRole="Evento" ToRole="Pagamento" />
+        </EntityType>
+        <EntityType Name="Funcionario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="isGerente" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pagamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Tempo" Type="Time" Precision="7" />
+          <Property Name="Valor" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DataHoraPagamento" Type="DateTime" Precision="3" />
+          <Property Name="EventoId" Type="Int16" Nullable="false" />
+          <Property Name="PagamentoTipoId" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Evento" Relationship="Self.FK_Pagamento_Evento" FromRole="Pagamento" ToRole="Evento" />
+          <NavigationProperty Name="PagamentoTipo" Relationship="Self.FK_Pagamento_PagamentoTipo" FromRole="Pagamento" ToRole="PagamentoTipo" />
+        </EntityType>
+        <EntityType Name="PagamentoTipo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Byte" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isAtivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Pagamento" Relationship="Self.FK_Pagamento_PagamentoTipo" FromRole="PagamentoTipo" ToRole="Pagamento" />
+        </EntityType>
+        <EntityType Name="Preco">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Tempo" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Valor" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="isMoto" Type="Boolean" Nullable="false" />
+          <Property Name="isAtivo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Veiculo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Placa" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Cor" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="VeiculoModeloId" Type="Int16" />
+          <Property Name="isBloqueado" Type="Boolean" />
+          <NavigationProperty Name="Evento" Relationship="Self.FK_Evento_Veiculo" FromRole="Veiculo" ToRole="Evento" />
+          <NavigationProperty Name="VeiculoModelo" Relationship="Self.FK_Veiculo_VeiculoModelo" FromRole="Veiculo" ToRole="VeiculoModelo" />
+        </EntityType>
+        <EntityType Name="VeiculoModelo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isAtivo" Type="Boolean" />
+          <Property Name="isMoto" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Veiculo" Relationship="Self.FK_Veiculo_VeiculoModelo" FromRole="VeiculoModelo" ToRole="Veiculo" />
+        </EntityType>
+        <Association Name="FK_Evento_Aluno">
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="0..1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="AlunoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evento_Estacionamento">
+          <End Role="Estacionamento" Type="Self.Estacionamento" Multiplicity="1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estacionamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="EstacionamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evento_Veiculo">
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="0..1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="VeiculoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_Evento">
+          <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="EventoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_PagamentoTipo">
+          <End Role="PagamentoTipo" Type="Self.PagamentoTipo" Multiplicity="1" />
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PagamentoTipo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="PagamentoTipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Veiculo_VeiculoModelo">
+          <End Role="VeiculoModelo" Type="Self.VeiculoModelo" Multiplicity="0..1" />
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VeiculoModelo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Veiculo">
+              <PropertyRef Name="VeiculoModeloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SinosParkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aluno" EntityType="Self.Aluno" />
+          <EntitySet Name="Estacionamento" EntityType="Self.Estacionamento" />
+          <EntitySet Name="Evento" EntityType="Self.Evento" />
+          <EntitySet Name="Funcionario" EntityType="Self.Funcionario" />
+          <EntitySet Name="Pagamento" EntityType="Self.Pagamento" />
+          <EntitySet Name="PagamentoTipo" EntityType="Self.PagamentoTipo" />
+          <EntitySet Name="Preco" EntityType="Self.Preco" />
+          <EntitySet Name="Veiculo" EntityType="Self.Veiculo" />
+          <EntitySet Name="VeiculoModelo" EntityType="Self.VeiculoModelo" />
+          <AssociationSet Name="FK_Evento_Aluno" Association="Self.FK_Evento_Aluno">
+            <End Role="Aluno" EntitySet="Aluno" />
+            <End Role="Evento" EntitySet="Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evento_Estacionamento" Association="Self.FK_Evento_Estacionamento">
+            <End Role="Estacionamento" EntitySet="Estacionamento" />
+            <End Role="Evento" EntitySet="Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evento_Veiculo" Association="Self.FK_Evento_Veiculo">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="Evento" EntitySet="Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_Evento" Association="Self.FK_Pagamento_Evento">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_PagamentoTipo" Association="Self.FK_Pagamento_PagamentoTipo">
+            <End Role="PagamentoTipo" EntitySet="PagamentoTipo" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Veiculo_VeiculoModelo" Association="Self.FK_Veiculo_VeiculoModelo">
+            <End Role="VeiculoModelo" EntitySet="VeiculoModelo" />
+            <End Role="Veiculo" EntitySet="Veiculo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SinosParkModelStoreContainer" CdmEntityContainer="SinosParkEntities">
+          <EntitySetMapping Name="Aluno">
+            <EntityTypeMapping TypeName="SinosParkModel.Aluno">
+              <MappingFragment StoreEntitySet="Aluno">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ValorSaldo" ColumnName="ValorSaldo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estacionamento">
+            <EntityTypeMapping TypeName="SinosParkModel.Estacionamento">
+              <MappingFragment StoreEntitySet="Estacionamento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="isAtivo" ColumnName="isAtivo" />
+                <ScalarProperty Name="QuantidadeMaxima" ColumnName="QuantidadeMaxima" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evento">
+            <EntityTypeMapping TypeName="SinosParkModel.Evento">
+              <MappingFragment StoreEntitySet="Evento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Entrada" ColumnName="Entrada" />
+                <ScalarProperty Name="Saida" ColumnName="Saida" />
+                <ScalarProperty Name="CodigoBarras" ColumnName="CodigoBarras" />
+                <ScalarProperty Name="VeiculoId" ColumnName="VeiculoId" />
+                <ScalarProperty Name="AlunoId" ColumnName="AlunoId" />
+                <ScalarProperty Name="EstacionamentoId" ColumnName="EstacionamentoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funcionario">
+            <EntityTypeMapping TypeName="SinosParkModel.Funcionario">
+              <MappingFragment StoreEntitySet="Funcionario">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="isGerente" ColumnName="isGerente" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pagamento">
+            <EntityTypeMapping TypeName="SinosParkModel.Pagamento">
+              <MappingFragment StoreEntitySet="Pagamento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tempo" ColumnName="Tempo" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="DataHoraPagamento" ColumnName="DataHoraPagamento" />
+                <ScalarProperty Name="EventoId" ColumnName="EventoId" />
+                <ScalarProperty Name="PagamentoTipoId" ColumnName="PagamentoTipoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PagamentoTipo">
+            <EntityTypeMapping TypeName="SinosParkModel.PagamentoTipo">
+              <MappingFragment StoreEntitySet="PagamentoTipo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="isAtivo" ColumnName="isAtivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Preco">
+            <EntityTypeMapping TypeName="SinosParkModel.Preco">
+              <MappingFragment StoreEntitySet="Preco">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tempo" ColumnName="Tempo" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="isMoto" ColumnName="isMoto" />
+                <ScalarProperty Name="isAtivo" ColumnName="isAtivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Veiculo">
+            <EntityTypeMapping TypeName="SinosParkModel.Veiculo">
+              <MappingFragment StoreEntitySet="Veiculo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Placa" ColumnName="Placa" />
+                <ScalarProperty Name="Cor" ColumnName="Cor" />
+                <ScalarProperty Name="VeiculoModeloId" ColumnName="VeiculoModeloId" />
+                <ScalarProperty Name="isBloqueado" ColumnName="isBloqueado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VeiculoModelo">
+            <EntityTypeMapping TypeName="SinosParkModel.VeiculoModelo">
+              <MappingFragment StoreEntitySet="VeiculoModelo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="isAtivo" ColumnName="isAtivo" />
+                <ScalarProperty Name="isMoto" ColumnName="isMoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

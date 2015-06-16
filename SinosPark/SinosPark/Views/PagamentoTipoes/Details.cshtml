@@ -1,0 +1,34 @@
+﻿@model SinosPark.Models.PagamentoTipo
+
+@{
+    ViewBag.Title = @Resource.Label_Details;
+}
+
+<h2>@Resource.Label_Details</h2>
+
+<div>
+    <h4>Tipo de Pagamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isAtivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isAtivo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(@Resource.Label_Edit, "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(@Resource.Label_BackToList, "Index")
+</p>

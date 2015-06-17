@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SinosPark.Models.Aluno>
+﻿@using System.Globalization
+@model IEnumerable<SinosPark.Models.Aluno>
 
 @{
     ViewBag.Title = "Alunos";
@@ -38,7 +39,10 @@
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ValorSaldo)
+            @if (item.ValorSaldo != null)
+            {
+                @Html.Label(item.ValorSaldo.Value.ToString("C", CultureInfo.CurrentCulture))
+            }
         </td>
         <td>
             @Html.ActionLink(@Resource.Label_Edit, "Edit", new { id=item.Id }) |

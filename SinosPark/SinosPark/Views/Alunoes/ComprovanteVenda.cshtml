@@ -1,0 +1,41 @@
+﻿@using System.Globalization
+@model SinosPark.ViewModels.CreditoViewModel
+@{
+    ViewBag.Title = "Comprovante de Venda";
+}
+
+<h2>Comprovante de Venda</h2>
+<div>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Data da Compra</h4>
+                @Html.Label(Model.DataCompra.ToString(CultureInfo.CurrentCulture))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Matrícula/Aluno</h4>
+                @Html.Label(Model.AlunoMatricula) / @Html.Label(Model.AlunoNome)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Valor</h4>
+                @Html.Label(Model.Valor.ToString("C", CultureInfo.CurrentCulture))
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Forma de Pagamento</h4>
+                @Html.Label(Model.PagamentoTipoNome)
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Nova Compra", "ComprarCreditos")
+</p>

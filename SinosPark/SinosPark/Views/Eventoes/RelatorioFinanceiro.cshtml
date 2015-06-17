@@ -1,0 +1,34 @@
+﻿@using System.Globalization
+@model List<SinosPark.ViewModels.RelatorioFinanceiroViewModel>
+@{
+    ViewBag.Title = "Relatório Financeiro";
+}
+
+<h2>Relatório Financeiro por mês/estacionamento</h2>
+<table class=" table table-hover">
+    <tr>
+        <th>
+            Mês
+        </th>
+        <th>
+            Valor
+        </th>
+        <th>
+            Estacionamento
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.Label(item.MesNome)
+            </td>
+            <td>
+                @Html.Label(item.Valor.ToString("C", CultureInfo.CurrentCulture))
+            </td>
+            <td>
+                @Html.Label(item.EstacionamentoNome)
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,66 @@
+﻿@using System.Globalization
+@using System.Resources
+@model SinosPark.ViewModels.EventoPagamentoViewModel
+@{
+    ViewBag.Title = "Saída";
+}
+
+<h2>Lançar Evento de Entrada</h2>
+
+@using (Html.BeginForm("ComprovantePagamento", "Eventoes"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Evento</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" name="EventoId" value="@Model.EventoId"/>
+        <div class="form-group">
+            <label class="control-label col-md-2">Data e Hora de Entrada</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control no-client-validation" value="@Model.DataEntrada.ToString("g", CultureInfo.CurrentCulture)" disabled="disabled"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Data e Hora de Saída</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control no-client-validation" value="@Model.DataSaida.ToString("g", CultureInfo.CurrentCulture)" disabled="disabled"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PagamentoId, "Pagamento", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PagamentoId", Model.Pagamentos, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PagamentoId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <h4>Tempo: @Html.Label(Model.Tempo.ToString())
+                </h4>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <h4>
+                    Valor: @Html.Label(Model.Valor.ToString("C", CultureInfo.CurrentCulture))
+                </h4>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@Resource.Label_Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

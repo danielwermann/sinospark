@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PagamentoTipoesController.cs" />
     <Compile Include="Controllers\PrecoesController.cs" />
+    <Compile Include="Controllers\VeiculoesController.cs" />
     <Compile Include="Controllers\VeiculoModeloesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -228,7 +229,11 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Utility\ExtensionMethods.cs" />
+    <Compile Include="ViewModels\CreditoViewModel.cs" />
+    <Compile Include="ViewModels\EventoPagamentoViewModel.cs" />
     <Compile Include="ViewModels\EventoViewModel.cs" />
+    <Compile Include="ViewModels\RelatorioFinanceiroViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -433,6 +438,19 @@
     <Content Include="Views\Eventoes\Edit.cshtml" />
     <Content Include="Views\Eventoes\Index.cshtml" />
     <Content Include="Views\Eventoes\Entrada.cshtml" />
+    <Content Include="Views\Alunoes\ComprarCreditos.cshtml" />
+    <Content Include="Views\Alunoes\ComprovanteVenda.cshtml" />
+    <Content Include="Views\Eventoes\Ticket.cshtml" />
+    <Content Include="Views\Eventoes\Saida.cshtml" />
+    <Content Include="Views\Veiculoes\Create.cshtml" />
+    <Content Include="Views\Veiculoes\Delete.cshtml" />
+    <Content Include="Views\Veiculoes\Details.cshtml" />
+    <Content Include="Views\Veiculoes\Edit.cshtml" />
+    <Content Include="Views\Veiculoes\Index.cshtml" />
+    <Content Include="Views\Eventoes\Lista.cshtml" />
+    <Content Include="Views\Eventoes\ComprovantePagamento.cshtml" />
+    <Content Include="Views\Eventoes\RelatorioFinanceiro.cshtml" />
+    <Content Include="Views\Eventoes\RelatorioMovimentacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

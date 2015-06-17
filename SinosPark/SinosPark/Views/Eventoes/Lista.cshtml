@@ -1,0 +1,90 @@
+﻿@model IEnumerable<SinosPark.ViewModels.EventoViewModel>
+
+@{
+    ViewBag.Title = "Lista de Entradas";
+}
+
+<h2>Lista de Entradas</h2>
+
+<p>
+    @Html.ActionLink("Lançar Nova Entrada", "Entrada", new { controller = "Eventoes" })
+</p>
+
+@using (Html.BeginForm("Lista", "Eventoes", FormMethod.Get))
+{
+    <div class="form-inline" style="margin-bottom: 20px">
+        <h4>Procurar</h4>
+        <div class="row">
+            <div class="col-md-5">
+                <label class="control-label">Matrícula</label>
+                <input type="text" class="form-control" name="matricula" value="@ViewBag.SearchMatricula"/>
+            </div>
+            <div class="col-md-5">
+                <label class="control-label">Placa</label>
+                <input type="text" class="form-control" name="placa" value="@ViewBag.SearchPlaca" />
+            </div>
+            <div class="col-md-2">
+                <input type="submit" value="Filtrar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Entrada
+        </th>
+        <th>
+            Saída
+        </th>
+        <th>
+            Matrícula/Aluno
+        </th>
+        <th>
+            Veículo/Placa/Cor
+        </th>
+        <th>
+            Estacionamento
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Entrada
+            </td>
+            <td>
+                @item.Saida
+            </td>
+            <td>
+                @if (item.AlunoNome != "")
+                {
+                    @Html.Raw(string.Format("{0}/{1}", item.AlunoMatricula, item.AlunoNome))
+                }
+            </td>
+            <td>
+                @if (item.VeiculoPlaca != "")
+                {
+                    @Html.Raw(string.Format("{0}/{1}/{2}", item.VeiculoModelo , item.VeiculoPlaca , item.VeiculoCor))
+                }
+                
+            </td>
+            <td>
+                @item.EstacionamentoNome
+            </td>
+            <td>
+                @if (!item.Saida.HasValue)
+                {
+                    @Html.ActionLink("Lançar Saída", "Saida", new {id = item.EventoId})
+                }
+                else
+                {
+                    @Html.ActionLink("Visualizar", "ComprovantePagamento", new { pagamentoId = item.PagamentoId })
+                }
+            </td>
+        </tr>
+    }
+
+</table>

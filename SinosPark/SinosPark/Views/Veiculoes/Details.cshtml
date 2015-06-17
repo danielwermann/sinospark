@@ -1,0 +1,50 @@
+﻿@model SinosPark.Models.Veiculo
+
+@{
+    ViewBag.Title = Resource.Label_Details;
+}
+
+<h2>@Resource.Label_Details</h2>
+
+<div>
+    <h4>Veículo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Placa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Placa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isBloqueado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isBloqueado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VeiculoModelo.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VeiculoModelo.Descricao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(@Resource.Label_Edit, "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(@Resource.Label_BackToList, "Index")
+</p>

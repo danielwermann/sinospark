@@ -24,7 +24,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Lançar Entrada", "Entrada", "Eventoes")</li>
-                    <li>@Html.ActionLink("Lançar Saída", "Saida", "Eventoes")</li>
+                    <li>@Html.ActionLink("Lançar Saída", "Index", "Eventoes")</li>
+                    <li>@Html.ActionLink("Comprar Crédito", "ComprarCreditos", "Alunoes")</li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                             Cadastros <span class="caret"></span>
@@ -34,6 +35,7 @@
                             <li>@Html.ActionLink("Aluno", "Index", "Alunoes")</li>
                             <li>@Html.ActionLink("Estacionamento", "Index", "Estacionamentoes")</li>
                             <li>@Html.ActionLink("Funcionário", "Index", "Funcionarios")</li>
+                            <li>@Html.ActionLink("Veículos", "Index", "Veiculoes")</li>
                             <li>@Html.ActionLink("Modelo de Veículos", "Index", "VeiculoModeloes")</li>
                             <li>@Html.ActionLink("Tipos de Pagamento", "Index", "PagamentoTipoes")</li>
                         </ul>
@@ -43,8 +45,8 @@
                             Relatórios <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Entradas e Saídas", "Index", "Precoes")</li>
-                            <li>@Html.ActionLink("Financeiro", "Index", "Alunoes")</li>
+                            <li>@Html.ActionLink("Entradas e Saídas", "RelatorioMovimentacao", "Eventoes")</li>
+                            <li>@Html.ActionLink("Financeiro", "RelatorioFinanceiro", "Eventoes")</li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Sobre", "About", "Home")</li>

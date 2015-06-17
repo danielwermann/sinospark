@@ -1,0 +1,43 @@
+﻿@using System.Globalization
+@model SinosPark.ViewModels.EventoViewModel
+@{
+    ViewBag.Title = "Ticket";
+}
+
+<h2>Ticket</h2>
+<div>
+    <hr/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Data de Entrada</h4>
+                @Html.Label(Model.Entrada.Value.ToString(CultureInfo.CurrentCulture))
+            </div>
+        </div>
+
+        @if (Model.VeiculoId == -1)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Matrícula/Aluno</h4>
+                    @Html.Label(Model.AlunoMatricula) / @Html.Label(Model.AlunoNome)
+                </div>
+            </div>
+        }
+        @if (Model.AlunoId == -1)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Veículo (Placa/Cor)</h4>
+                    @Html.Label(Model.VeiculoPlaca) / @Html.Label(Model.VeiculoCor)
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Estacionamento</h4>
+                @Html.Label(Model.EstacionamentoNome)
+            </div>
+        </div>
+    </div>
+</div>

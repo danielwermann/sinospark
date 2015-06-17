@@ -6,7 +6,7 @@
 
 <h2>Lançar Evento de Entrada</h2>
 
-@using (Html.BeginForm("SaveEntrada"))
+@using (Html.BeginForm("Ticket", "Eventoes"))
 {
     @Html.AntiForgeryToken()
 
@@ -19,36 +19,35 @@
             <label class="control-label col-md-2">Data e Hora de entrada</label>
             <div class="col-md-10">
                 <div class='input-group date' id='dataEntrada'>
-                    @Html.EditorFor(model => model.Entrada, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.EditorFor(model => model.Entrada, new { htmlAttributes = new { @class = "form-control no-client-validation" } })
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-time"></span>
                     </span>
                 </div>
-                @Html.ValidationMessageFor(model => model.Entrada, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Estacionamentos, "Estacionamento", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Estacionamentos", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Estacionamentos, "", new { @class = "text-danger" })
+                @Html.DropDownList("EstacionamentoId", Model.Estacionamentos, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EstacionamentoId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Veiculos, "Veículo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Veiculos", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Veiculos, "", new { @class = "text-danger" })
+                @Html.DropDownList("VeiculoId", Model.Veiculos, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VeiculoId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Alunos, "Aluno", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Alunos", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Alunos, "", new { @class = "text-danger" })
+                @Html.DropDownList("AlunoId", Model.Alunos, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AlunoId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -62,7 +61,14 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
     <script>
+        $.validator.setDefaults({
+            ignore: '.no-client-validation, :hidden' //:hidden is default value
+        });
+
+        $.validator.
+
         $(function () {
             moment.locale('pt', {
                 months: "janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro".split("_"),
@@ -107,9 +113,9 @@
                 ordinal : '%dº'
             });
 
-        $('#dataEntrada').datetimepicker({
-            locale: "pt"
+            $('#dataEntrada').datetimepicker({
+                locale: "pt"
+            });
         });
-    });
-</script>
+    </script>
 }

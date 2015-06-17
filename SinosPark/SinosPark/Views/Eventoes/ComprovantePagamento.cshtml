@@ -1,0 +1,65 @@
+﻿@using System.Globalization
+@model SinosPark.ViewModels.EventoPagamentoViewModel
+@{
+    ViewBag.Title = "Comprovante de Pagamento";
+}
+
+<h2>Comprovante de Pagamento</h2>
+<div>
+    <hr/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Data de Entrada</h4>
+                @Html.Label(Model.DataEntrada.ToString(CultureInfo.CurrentCulture))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Data de Entrada</h4>
+                @Html.Label(Model.DataSaida.ToString(CultureInfo.CurrentCulture))
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Tempo</h4>
+                @Html.Label(Model.Tempo.ToString())
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Valor Pago</h4>
+                @Html.Label(Model.Valor.ToString("C", CultureInfo.CurrentCulture))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Forma de Pagamento</h4>
+                @Html.Label(Model.PagamentoNome)
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.AlunoNome))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Matrícula/Aluno</h4>
+                    @Html.Label(Model.AlunoMatricula) / @Html.Label(Model.AlunoNome)
+                </div>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.VeiculoPlaca))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Veículo (Placa/Cor)</h4>
+                    @Html.Raw(string.Format("{0}/{1}/{2}", Model.VeiculoModelo, Model.VeiculoPlaca, Model.VeiculoCor))
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    @Html.ActionLink(@Resource.Label_BackToList, "Lista")
+</div>

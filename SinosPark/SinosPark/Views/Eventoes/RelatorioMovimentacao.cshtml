@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SinosPark.ViewModels.EventoViewModel>
+
+@{
+    ViewBag.Title = "Movimentação";
+}
+
+<h2>Relatório de Movimentação</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Entrada
+        </th>
+        <th>
+            Saída
+        </th>
+        <th>
+            Matrícula/Aluno
+        </th>
+        <th>
+            Veículo/Placa/Cor
+        </th>
+        <th>
+            Estacionamento
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Entrada
+            </td>
+            <td>
+                @item.Saida
+            </td>
+            <td>
+                @if (item.AlunoNome != "")
+                {
+                    @Html.Raw(string.Format("{0}/{1}", item.AlunoMatricula, item.AlunoNome))
+                }
+            </td>
+            <td>
+                @if (item.VeiculoPlaca != "")
+                {
+                    @Html.Raw(string.Format("{0}/{1}/{2}", item.VeiculoModelo, item.VeiculoPlaca, item.VeiculoCor))
+                }
+
+            </td>
+            <td>
+                @item.EstacionamentoNome
+            </td>
+        </tr>
+    }
+
+</table>
